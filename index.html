@@ -12,14 +12,21 @@
 	<body>
 		<script>
 			const path = window.location.pathname;
+			const basePath = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
 
-			if (path.startsWith('/share-collection/') && path.length > 18) {
-				const token = path.substring(18);
-				window.location.href = `/shared.html?token=${token}`;
-			} else if (path.startsWith('/kicksfolio-share/share-collection/')) {
-				const token = path.substring(35);
-				window.location.href = `/kicksfolio-share/shared.html?token=${token}`;
+			if (path.includes('/share-collection/')) {
+				const tokenIndex = path.indexOf('/share-collection/') + 18;
+				const token = path.substring(tokenIndex);
+				if (token) {
+					window.location.href = `${basePath}shared.html?token=${token}`;
+				} else {
+					showDefault();
+				}
 			} else {
+				showDefault();
+			}
+
+			function showDefault() {
 				document.write(`
 					<div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; text-align: center; padding: 50px;">
 						<h1>🔗 KicksFolio Share</h1>
