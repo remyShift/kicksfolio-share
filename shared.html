@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Sneaker Collection - KicksFolio</title>
+		<meta
+			name="description"
+			content="Check out this sneaker collection on KicksFolio"
+		/>
+
+		<meta property="og:title" content="Sneaker Collection - KicksFolio" />
+		<meta
+			property="og:description"
+			content="Check out this amazing sneaker collection!"
+		/>
+		<meta
+			property="og:image"
+			content="https://www.kicksfolio.com/og-image.png"
+		/>
+		<meta
+			property="og:url"
+			content="https://www.kicksfolio.com/share-collection/"
+		/>
+
+		<style>
+			body {
+				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+				margin: 0;
+				padding: 40px 20px;
+				text-align: center;
+				background: linear-gradient(180deg, #fff 0%, #fff5ef 100%);
+				min-height: 100vh;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.container {
+				background: #fff;
+				padding: 40px;
+				border-radius: 24px;
+				box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+				max-width: 420px;
+				width: 100%;
+			}
+
+			.logo {
+				font-size: 2.5em;
+				margin-bottom: 20px;
+				color: #ff6b2c;
+			}
+
+			h1 {
+				color: #111;
+				margin-bottom: 10px;
+				font-size: 1.8rem;
+				font-weight: 700;
+			}
+
+			p {
+				color: #666;
+				margin-bottom: 30px;
+				font-size: 1rem;
+			}
+
+			.btn {
+				display: inline-block;
+				background: linear-gradient(90deg, #ff7a3d, #ff5a1f);
+				color: white;
+				padding: 14px 28px;
+				text-decoration: none;
+				border-radius: 9999px;
+				margin: 8px;
+				font-weight: 600;
+				font-size: 1rem;
+				transition: all 0.3s ease;
+				box-shadow: 0 6px 14px rgba(255, 90, 31, 0.3);
+			}
+
+			.btn:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 8px 18px rgba(255, 90, 31, 0.35);
+			}
+
+			.btn-secondary {
+				background: #f5f5f5;
+				color: #333;
+				box-shadow: none;
+			}
+
+			.btn-secondary:hover {
+				background: #ebebeb;
+			}
+
+			.spinner {
+				display: none;
+				margin: 20px auto;
+				width: 40px;
+				height: 40px;
+				border: 4px solid #f3f3f3;
+				border-top: 4px solid #ff6b2c;
+				border-radius: 50%;
+				animation: spin 1s linear infinite;
+			}
+
+			@keyframes spin {
+				0% { transform: rotate(0deg); }
+				100% { transform: rotate(360deg); }
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container">
+		<div class="logo">👟</div>
+		<h1>Opening KicksFolio...</h1>
+		<p id="description">Viewing sneaker collection</p>
+		<div class="spinner" id="spinner"></div>
+
+		<div id="fallback" style="display: none">
+			<h2>App not installed?</h2>
+			<p>Download KicksFolio to view this collection:</p>
+			<a href="https://apps.apple.com/app/kicksfolio" class="btn">📱 Download for iOS</a>
+			<a href="https://play.google.com/store/apps/details?id=com.kicksfolio" class="btn">🤖 Download for Android</a>
+		</div>
+
+		<a href="#" class="btn" id="openApp">Open in KicksFolio</a>
+		</div>
+
+		<script>
+		function getTokenFromUrl() {
+			const urlParams = new URLSearchParams(window.location.search);
+			const tokenFromParam = urlParams.get('token') || urlParams.get('t');
+			if (tokenFromParam) return tokenFromParam;
+
+			const path = window.location.pathname;
+			const pathParts = path.split('/');
+			const sharedIndex = pathParts.indexOf('shared');
+			if (sharedIndex !== -1 && pathParts[sharedIndex + 1]) {
+			return pathParts[sharedIndex + 1];
+			}
+			return null;
+		}
+
+		const token = getTokenFromUrl();
+
+		if (!token) {
+			document.getElementById('description').textContent = 'Invalid collection link';
+			document.getElementById('fallback').style.display = 'block';
+		} else {
+			const deepLink = `kicksfolio://share-collection/${token}`;
+			const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+			const isMobile = /iPhone|iPad|iPod|Android/i.test(userAgent);
+
+			document.getElementById('openApp').href = deepLink;
+
+			if (isMobile) {
+			document.getElementById('spinner').style.display = 'block';
+			window.location.href = deepLink;
+			setTimeout(function () {
+				document.getElementById('spinner').style.display = 'none';
+				document.getElementById('fallback').style.display = 'block';
+			}, 3000);
+			} else {
+			document.getElementById('fallback').style.display = 'block';
+			}
+		}
+		</script>
+	</body>
+</html>

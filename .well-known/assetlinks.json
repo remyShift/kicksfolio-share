@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.kicksfolio",
+      "sha256_cert_fingerprints": [
+        "4A:D3:75:2B:CF:04:BC:FC:5B:C0:C1:67:85:D3:67:42:A7:52:82:A7:3D:A0:40:E5:B9:12:48:3E:37:3C:35:0A"
+      ]
+    }
+  }
+]

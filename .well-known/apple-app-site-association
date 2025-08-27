@@ -1,0 +1,22 @@
+{
+	"applinks": {
+		"details": [
+			{
+				"appIDs": [
+					"JBDDPABQDG.app.kicksfolio"
+				],
+				"components": [
+					{
+						"/": "/share-collection/*",
+						"comment": "Collection sharing links"
+					}
+				]
+			}
+		]
+	},
+	"webcredentials": {
+		"apps": [
+			"JBDDPABQDG.app.kicksfolio"
+		]
+	}
+}
