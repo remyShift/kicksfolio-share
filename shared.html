@@ -25,7 +25,9 @@
 
 		<style>
 			body {
-				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+				font-family:
+					-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+					sans-serif;
 				margin: 0;
 				padding: 40px 20px;
 				text-align: center;
@@ -121,51 +123,66 @@
 				transform: scale(1.05);
 			}
 
-
 			@keyframes spin {
-				0% { transform: rotate(0deg); }
-				100% { transform: rotate(360deg); }
+				0% {
+					transform: rotate(0deg);
+				}
+				100% {
+					transform: rotate(360deg);
+				}
 			}
 		</style>
 	</head>
 
 	<body>
 		<div class="container">
-		<div class="logo">👟</div>
-		<h1>Opening KicksFolio...</h1>
-		<p id="description">Viewing sneaker collection</p>
-		<div class="spinner" id="spinner"></div>
+			<div class="logo">👟</div>
+			<h1>Opening KicksFolio...</h1>
+			<p id="description">Viewing sneaker collection</p>
+			<div class="spinner" id="spinner"></div>
 
-		<div id="fallback" style="display: none">
-			<h2>App not installed?</h2>
-			<p>Download KicksFolio to view this collection:</p>
-			<div class="store-buttons">
-				<a href="https://apps.apple.com/app/kicksfolio" target="_blank">
-					<img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" 
-						alt="Download on the App Store" class="store-badge" />
-				</a>
-				<a href="https://play.google.com/store/apps/details?id=com.kicksfolio" target="_blank">
-					<img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" 
-						alt="Get it on Google Play" class="store-badge" />
-				</a>
+			<div id="fallback" style="display: none">
+				<h2>App not installed?</h2>
+				<p>Download KicksFolio to view this collection:</p>
+				<div class="store-buttons">
+					<a
+						href="https://apps.apple.com/app/kicksfolio"
+						target="_blank"
+					>
+						<img
+							src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+							alt="Download on the App Store"
+							class="store-badge"
+						/>
+					</a>
+					<a
+						href="https://play.google.com/store/apps/details?id=com.kicksfolio"
+						target="_blank"
+					>
+						<img
+							src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+							alt="Get it on Google Play"
+							class="store-badge"
+						/>
+					</a>
+				</div>
 			</div>
-			  
-		</div>
 
-		<a href="#" class="btn" id="openApp">Open in KicksFolio</a>
+			<a href="#" class="btn" id="openApp">Open in KicksFolio</a>
 		</div>
 
 		<script>
 			function getTokenFromUrl() {
 				const urlParams = new URLSearchParams(window.location.search);
-				const tokenFromParam = urlParams.get('token') || urlParams.get('t');
+				const tokenFromParam =
+					urlParams.get('token') || urlParams.get('t');
 				if (tokenFromParam) return tokenFromParam;
 
 				const path = window.location.pathname;
 				const pathParts = path.split('/');
 				const sharedIndex = pathParts.indexOf('shared');
 				if (sharedIndex !== -1 && pathParts[sharedIndex + 1]) {
-				return pathParts[sharedIndex + 1];
+					return pathParts[sharedIndex + 1];
 				}
 				return null;
 			}
@@ -173,24 +190,28 @@
 			const token = getTokenFromUrl();
 
 			if (!token) {
-				document.getElementById('description').textContent = 'Invalid collection link';
+				document.getElementById('description').textContent =
+					'Invalid collection link';
 				document.getElementById('fallback').style.display = 'block';
 			} else {
 				const deepLink = `kicksfolio://share-collection/${token}`;
-				const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+				const userAgent =
+					navigator.userAgent || navigator.vendor || window.opera;
 				const isMobile = /iPhone|iPad|iPod|Android/i.test(userAgent);
 
 				document.getElementById('openApp').href = deepLink;
 
 				if (isMobile) {
-				document.getElementById('spinner').style.display = 'block';
-				window.location.href = deepLink;
-				setTimeout(function () {
-					document.getElementById('spinner').style.display = 'none';
-					document.getElementById('fallback').style.display = 'block';
-				}, 3000);
+					document.getElementById('spinner').style.display = 'block';
+					window.location.href = deepLink;
+					setTimeout(function () {
+						document.getElementById('spinner').style.display =
+							'none';
+						document.getElementById('fallback').style.display =
+							'block';
+					}, 3000);
 				} else {
-				document.getElementById('fallback').style.display = 'block';
+					document.getElementById('fallback').style.display = 'block';
 				}
 			}
 		</script>
